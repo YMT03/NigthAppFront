@@ -12,6 +12,7 @@ class Navbar extends Component {
     render(){
         let titulo = this.state.user? this.state.user.Nombre : "Ingresar"
         let goTo = this.state.user? "" : "/iniciosesion"
+        let createAllowed = (this.state.user && (this.state.user.Rol=='OWNER'||this.state.user.Rol=='ADMIN')) 
         return(
             <div className="Navbar">
                 <div className="row">
@@ -29,9 +30,13 @@ class Navbar extends Component {
                                     <li className="nav-item">
                                         <a href="/about" className="nav-link">Ayuda</a>
                                     </li>
-                                    <li className="nav-item">
-                                        <a href="/RegistroLocales" className="nav-link">Registrar local</a>
-                                    </li>
+                                    {
+                                        createAllowed?
+                                        (<li className="nav-item">
+                                        <a href="/RegistroLocales" className="nav-link">Registrar Local</a>
+                                        </li>):(<></>)
+                                    }
+                                    
                                 </ul>
                                 <ul className="nav navbar-nav ml-auto">
                                     <li className="nav-item">
