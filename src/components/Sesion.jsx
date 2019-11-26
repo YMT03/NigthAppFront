@@ -19,7 +19,7 @@ class Sesion extends Component {
             }).then((usr)=>{
                 if(usr.Rol){
                     sessionStorage.setItem("user",JSON.stringify(usr))
-                    setCredentials(UserName,Password)
+                    sessionStorage.setItem('cr','Basic ' + btoa(UserName + ":" + Password))
                     this.setState({UserName:UserName,Password:Password})
                     window.location = "inicio"
                 }else{
