@@ -1,7 +1,17 @@
 import React, {Component} from 'react';
+import Usuario from './Usuario';
 
 class Navbar extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            user : null
+        }
+        this.state.user = Usuario.getCurrent()
+    }
     render(){
+        let titulo = this.state.user? this.state.user.Nombre : "Ingresar"
+        let goTo = this.state.user? "" : "/iniciosesion"
         return(
             <div className="Navbar">
                 <div className="row">
@@ -25,7 +35,10 @@ class Navbar extends Component {
                                 </ul>
                                 <ul className="nav navbar-nav ml-auto">
                                     <li className="nav-item">
-                                        <a className="nav-link" data-toggle="modal" href="/iniciosesion"><span className="fas fa-user"></span>Ingresar</a>
+                                        
+                                        <a className="nav-link" data-toggle="modal" href={goTo}><span className="fas fa-user"></span>
+        {titulo}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

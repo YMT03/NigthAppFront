@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select';
 import {Link} from 'react-router-dom';
+import Usuario from './Usuario'
 
 const optionsLugar = [
     { value: 'ubicacion', label: 'Ubicación actual'},
@@ -40,6 +41,8 @@ const optionsLugar = [
       this.filter = {
         Categorias: ["Bar","Restaurant","Boliche"]
       }
+
+      console.dir(Usuario.getCurrent())
       
   }
   handleSelect(e){
