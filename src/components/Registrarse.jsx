@@ -5,13 +5,12 @@ class Registrarse extends Component {
     constructor() {
         super();
         this.state = {
-            name: '',
-            surename: '',
-            username: '',
-            password: '',
-            confirmPassword: '',
-            email: '',
-            phone: '',
+            Nombre: '',
+            Apellido: '',
+            UserName: '',
+            Password: '',
+            ConfirmPassword: '',
+            Mail: '',
             hasAgreed: false
         };
 
@@ -22,7 +21,9 @@ class Registrarse extends Component {
     handleInputChange(e){
         const target = e.target;
         const name = target.name;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        let value = target.type === 'checkbox' ? target.checked : target.value;
+        if(name.includes("assword"))
+            value = new Buffer(target.value).toString('base64')
         this.setState({ [name]: value });
     }
     /*handleChange(e) {
@@ -37,7 +38,26 @@ class Registrarse extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log(this.state);
+        fetch('http://localhost:55555/app/usuarios', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state)})
+            .then((response)=>{
+                return response.json()
+            }).then((usr)=>{
+                if(usr.Rol){
+                    sessionStorage.setItem("user",JSON.stringify(usr))
+                    alert("Usuario creado satisfactoriamente")
+                    window.location = "inicio"
+                }else{
+                    alert("Error","Intente nuevamente")
+                    window.location = "registro"
+                }
+                
+            });
     }
     
 
@@ -59,13 +79,13 @@ class Registrarse extends Component {
                                         <label className="form_text">Nombre</label>
                                         <label className="text-danger"> *</label>
                                         <br></br>
-                                        <input className="form-control " type="text" ref="name" name="name" onChange={this.handleInputChange}></input>
+                                        <input className="form-control " type="text" ref="Nombre" name="Nombre" onChange={this.handleInputChange}></input>
                                     </div>
                                     <div className="col-xs-12 col-sm-12 col-md-6 mb-3">
                                         <label className="form_text">Apellido</label>
                                         <label className="text-danger"> *</label>
                                         <br></br>
-                                        <input className="form-control " type="text" name="surename" onChange={this.handleInputChange}></input>
+                                        <input className="form-control " type="text" name="Apellido" onChange={this.handleInputChange}></input>
                                     </div>   
                                 </div>
                                 <div className="form-group row">
@@ -73,7 +93,7 @@ class Registrarse extends Component {
                                         <label className="form_text">Nombre de usuario</label>
                                         <label className="text-danger"> *</label>
                                         <br></br>
-                                        <input className="form-control " type="text" name="username" onChange={this.handleInputChange}></input>
+                                        <input className="form-control " type="text" name="UserName" onChange={this.handleInputChange}></input>
                                     </div>   
                                 </div>
                                 <div className=" form-group row">
@@ -81,7 +101,7 @@ class Registrarse extends Component {
                                         <label className="form_text">Contraseña</label>
                                         <label className="text-danger"> *</label>
                                         <br></br>
-                                        <input className="form-control " type="password" name="password" onChange={this.handleInputChange}></input>
+                                        <input className="form-control " type="password" name="Password" onChange={this.handleInputChange}></input>
                                 </div>
                                 <div className="col-xs-12 col-sm-12 col-md-6 mb-3">
                                     <label className="form_text">Confirmar contraseña</label>
@@ -95,13 +115,7 @@ class Registrarse extends Component {
                                     <label className="form_text">E-mail</label>
                                     <label className="text-danger"> *</label>
                                     <br></br>
-                                    <input className="form-control " type="email" name="email" onChange={this.handleInputChange}></input>
-                                </div>
-                                <div className="col-xs-12 col-sm-12 col-md-6">
-                                    <label className="form_text">Teléfono</label>
-                                    <label className="text-danger"> *</label>
-                                    <br></br>
-                                    <input className="form-control " type="tel" name="phone" onChange={this.handleInputChange}></input>
+                                    <input className="form-control " type="email" name="Mail" onChange={this.handleInputChange}></input>
                                 </div>
                             </div>
                             <div className=" form-group row">
@@ -113,7 +127,7 @@ class Registrarse extends Component {
                             </div>
                             <div className=" form-group  row">
                                 <div className="col">
-                                    <button className="btn  btn-dark" id="enviar" type="submit" disabled>Enviar</button>
+                                    <button className="btn  btn-dark" id="enviar" type="submit" disabledz>Enviar</button>
                                 </div>
                             </div>                
                         </form>
