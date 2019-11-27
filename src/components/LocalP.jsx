@@ -12,7 +12,8 @@ class LocalP extends Component{
             loading : true,
             Titulo:"",
             Comentario:"",
-            Rating:5
+            Rating:5,
+            NombreUsuario:""
         }
         this.establecimiento = {}
         this.getEstablecimiento(props)
@@ -45,6 +46,7 @@ class LocalP extends Component{
             .then((response)=>{
                 return response.json()
             }).then((est)=>{
+                this.state.NombreUsuario = Usuario.getCurrent().Nombre
                 this.establecimiento.Comentarios.push(this.state)
                 this.setState({loading:false})
             });
