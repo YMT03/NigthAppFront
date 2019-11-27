@@ -9,6 +9,9 @@
   text-align: center;
  
 }
+.checked {
+  color: orange;
+}
 
 .form_text{
   font-size: 20px;

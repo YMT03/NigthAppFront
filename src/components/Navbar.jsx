@@ -28,15 +28,18 @@ class Navbar extends Component {
                                         <a href="/inicio" className="nav-link active">Inicio</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a href="/about" className="nav-link">Ayuda</a>
+                                        <a href="/consulta" className="nav-link">Lugares</a>
                                     </li>
+                                    
                                     {
                                         createAllowed?
                                         (<li className="nav-item">
                                         <a href="/RegistroLocales" className="nav-link">Registrar Local</a>
                                         </li>):(<></>)
                                     }
-                                    
+                                    <li className="nav-item">
+                                        <a href="/about" className="nav-link">Ayuda</a>
+                                    </li>                                    
                                 </ul>
                                 <ul className="nav navbar-nav ml-auto">
                                     <li className="nav-item">
